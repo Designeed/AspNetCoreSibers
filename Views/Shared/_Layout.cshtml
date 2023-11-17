@@ -2,21 +2,32 @@
 <html lang="en">
 <head>
     @await Html.PartialAsync("MetaPartial")
-    <title>@ViewBag.Title</title>
     @await Html.PartialAsync("CssPartial")
 </head>
 <body>
-    <header>
-        123
+    <header class="bg-white border-bottom">
+        <div class="d-flex justify-content-between container">
+            <nav class="navbar">
+                <a class="navbar-brand m-0" asp-controller="Project" asp-action="List">
+                    <img src="/images/sibers-logo.jpeg" height="40">
+                </a>
+
+            </nav>
+            <nav class="nav w-100 fs-4 align-middle align-items-center justify-content-center">
+
+                <a class="nav-link" asp-controller="Project" asp-action="List">Список проектов</a>
+                <a class="nav-link">Список сотрудников</a>
+            </nav>
+        </div>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="h-100">
+        <main role="main" class="container h-100">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="collapse">
 
     </footer>
     @await Html.PartialAsync("ScriptPartial")
