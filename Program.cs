@@ -1,10 +1,20 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Dependency;
-using Microsoft.AspNetCore.Builder;
+using AspNetCoreSibers.Domain;
+using Microsoft.EntityFrameworkCore;
+using AspNetCoreSibers.Domain.Repositories.EmployeeRepository;
+using AspNetCoreSibers.Domain.Repositories.ProjectRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRazorPages();
+builder.Host.ConfigureServices(services =>
+{
+    services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
+    services.AddScoped<IProjectRepository, EFProjectRepository>();
+});
+
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(connection));
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -16,9 +26,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapControllerRoute(
-   name: "default",
-   pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapRazorPages();
+    name: "default",
+    pattern: "{controller=Project}/{action=List}/{id?}");
 
 app.Run();
