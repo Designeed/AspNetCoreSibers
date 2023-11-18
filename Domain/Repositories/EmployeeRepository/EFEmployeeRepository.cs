@@ -1,5 +1,4 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreSibers.Domain.Repositories.EmployeeRepository
@@ -36,7 +35,7 @@ namespace AspNetCoreSibers.Domain.Repositories.EmployeeRepository
             return await _dbContext.Employees.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<IReadOnlyList<Employee>> GetEmployeesAsync()
+        public async Task<ICollection<Employee>> GetEmployeesAsync()
         {
             return await _dbContext.Employees.ToListAsync();
         }

@@ -27,6 +27,7 @@ app.UseRouting();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Project}/{action=List}/{id?}");
+    pattern: "{controller=Project}/{action=Index}/{id?}");
+
 
 app.Run();

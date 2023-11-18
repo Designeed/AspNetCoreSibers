@@ -35,7 +35,7 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
             return await _dbContext.Projects.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<IReadOnlyList<Project>> GetProjectsAsync()
+        public async Task<ICollection<Project>> GetProjectsAsync()
         {
             return await _dbContext.Projects.ToListAsync();
         }
