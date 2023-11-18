@@ -8,6 +8,6 @@ namespace AspNetCoreSibers.Domain.Repositories.EmployeeRepository
         public Task AddEmployeeAsync(Employee employee);
         public Task EditEmployeeAsync(Employee employee);
         public Task<Employee> GetEmployeeByIdAsync(Guid id);
-        public Task<IReadOnlyList<Employee>> GetEmployeesAsync();
+        public Task<ICollection<Employee>> GetEmployeesAsync();
     }
 }

@@ -36,7 +36,7 @@ namespace AspNetCoreSibers.Domain.Repositories.EmployeeRepository
             return await _dbContext.Employees.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<IReadOnlyList<Employee>> GetEmployeesAsync()
+        public async Task<ICollection<Employee>> GetEmployeesAsync()
         {
             return await _dbContext.Employees.ToListAsync();
         }
