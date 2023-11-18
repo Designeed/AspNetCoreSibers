@@ -1,0 +1,42 @@
+﻿@using AspNetCoreSibers.Domain.Entities;
+@using AspNetCoreSibers.Service.Shared;
+
+@model Project
+@{
+    ViewData["Title"] = "Sibers - Добавление проекта";
+};
+
+<div class="d-flex justify-content-between mb-3">
+</div>
+
+<div class="row">
+    <form class="d-flex flex-column gap-2 col" asp-action="Create" asp-controller="Project" method="post">
+        <div class="form-group">
+            <label>Название проекта</label>
+            <input class="form-control" asp-for="Name">
+        </div>
+        <div class="form-group">
+            <label>Название компании-заказчика</label>
+            <input class="form-control" asp-for="CompanyClientName">
+        </div>
+        <div class="form-group">
+            <label>Название компании-исполнителя</label>
+            <input class="form-control" asp-for="CompanyExecutorName">
+        </div>
+
+        <div class="form-group">
+            <label>Дата начала проекта</label>
+            <input class="form-control" readonly type="text" value="@DateTime.Now.ToString(Constants.DATE_FORMAT)" asp-for="ProjectStartDate">
+        </div>
+
+        <div class="form-group">
+            <label>Приоритет проекта</label>
+            <input class="form-control" type="text" asp-for="Prierity">
+        </div>
+
+        <input type="submit" value="Создать проект" class="btn btn-outline-primary w-auto" />
+    </form>
+</div>
+
+
+
