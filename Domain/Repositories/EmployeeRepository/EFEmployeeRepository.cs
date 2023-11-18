@@ -1,5 +1,4 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreSibers.Domain.Repositories.EmployeeRepository
