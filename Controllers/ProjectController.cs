@@ -1,6 +1,8 @@
 ﻿using AspNetCoreSibers.Domain;
+using AspNetCoreSibers.Domain.Entities;
 using AspNetCoreSibers.Domain.Repositories.ProjectRepository;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 namespace AspNetCoreSibers.Controllers
 {
@@ -12,13 +14,14 @@ namespace AspNetCoreSibers.Controllers
             _projectRepository = projectRepository;
         }
 
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> Index()
         {
-           
-            return View(await _projectRepository.GetProjectsAsync());
+            var taskProjectList = _projectRepository.GetProjectsAsync();
+
+            return View(await taskProjectList);
         }
 
-        
+
         public IActionResult Add()
         {
             return View();
