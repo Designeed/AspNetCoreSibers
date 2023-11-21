@@ -1,7 +1,6 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
-using AspNetCoreSibers.Domain.Repositories.EmployeeRepository;
 using AspNetCoreSibers.Domain.Repositories.ProjectRepository;
-using AspNetCoreSibers.Service.Shared;
+using AspNetCoreSibers.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreSibers.Controllers

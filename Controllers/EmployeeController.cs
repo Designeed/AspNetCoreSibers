@@ -1,8 +1,7 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
 using AspNetCoreSibers.Domain.Repositories.EmployeeRepository;
-using AspNetCoreSibers.Service.Shared;
+using AspNetCoreSibers.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Differencing;
 
 namespace AspNetCoreSibers.Controllers
 {

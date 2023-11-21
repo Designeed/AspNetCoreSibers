@@ -1,4 +1,4 @@
-﻿namespace AspNetCoreSibers.Service.Shared
+﻿namespace AspNetCoreSibers.Service
 {
     public static class Extantions
     {
