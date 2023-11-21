@@ -8,20 +8,20 @@
     <header class="bg-white border-bottom">
         <div class="d-flex justify-content-between container">
             <nav class="navbar">
-                <a class="navbar-brand m-0" asp-controller="Project" asp-action="Index">
-                    <img src="/images/sibers-logo.jpeg" height="40">
+                <a class="navbar-brand m-0" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectIndexAction">
+                    <img src="~/images/sibers-logo.jpeg" height="40">
                 </a>
 
             </nav>
             <nav class="nav w-100 fs-4 align-middle align-items-center justify-content-center">
 
-                <a class="nav-link" asp-controller="Project" asp-action="Index">Список проектов</a>
-                <a class="nav-link" asp-controller="Employee" asp-action="Index">Список сотрудников</a>
+                <a class="nav-link" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectIndexAction">Список проектов</a>
+                <a class="nav-link" asp-controller="@TagHelpers.AspEmployeeController" asp-action="@TagHelpers.AspEmployeeIndexAction">Список сотрудников</a>
             </nav>
         </div>
     </header>
 
-    <div class="h-100">
+    <div class="h-100 mt-3">
         <main role="main" class="container h-100">
             @RenderBody()
         </main>

@@ -18,7 +18,7 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteProjectAsync(Guid id)
+        public async Task DeleteProjectByIdAsync(Guid id)
         {
             _dbContext.Projects.Remove(new Project { Id = id });
             await _dbContext.SaveChangesAsync();
@@ -30,7 +30,7 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Project> GetProjectByIdAsync(Guid id)
+        public async Task<Project?> GetProjectByIdAsync(Guid id)
         {
             return await _dbContext.Projects.FirstOrDefaultAsync(e => e.Id == id);
         }

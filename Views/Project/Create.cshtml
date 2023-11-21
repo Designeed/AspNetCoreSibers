@@ -4,13 +4,10 @@
 @model Project
 @{
     ViewData["Title"] = "Sibers - Добавление проекта";
-};
-
-<div class="d-flex justify-content-between mb-3">
-</div>
+}
 
 <div class="row">
-    <form class="d-flex flex-column gap-2 col" asp-action="Create" asp-controller="Project" method="post">
+    <form class="d-flex flex-column gap-2 col" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectCreateAction" method="post">
         <div class="form-group">
             <label>Название проекта</label>
             <input class="form-control" asp-for="Name">
@@ -26,33 +23,37 @@
 
         <div class="form-group">
             <label>Дата начала проекта</label>
-            <input class="form-control" readonly type="text" value="@DateTime.Now.ToString(Constants.DATE_FORMAT)" asp-for="ProjectStartDate">
+            <input class="form-control" readonly type="text" asp-for="ProjectStartDate" value="@DateTime.Now.ToString(Constants.DATE_FORMAT)">
         </div>
 
         <div class="form-group">
             <label>Приоритет проекта</label>
-            <input class="form-control" type="text" asp-for="Prierity">
+            <input class="form-control" type="text" asp-for="Prierity" value="">
         </div>
 
-        <input type="submit" value="Создать проект" class="btn btn-outline-primary w-auto" />
+        <input class="btn btn-outline-primary w-auto" type="submit" value="Добавить информацию о проекте" />
     </form>
+   @*  <div class="col">
+        <div class="d-flex flex-column gap-3 mh-75">
+            @if (Model?.AllEmployees != null)
+            {
+                @foreach (var employee in Model.AllEmployees)
+                {
+                    <form class="col card d-flex flex-row align-items-center w-100" method="post">
 
-    @*     <div class="col">
-    <div class="d-flex flex-column gap-3">
-    @foreach (var employee in Model)
-    {
-    <div class="card d-flex flex-row align-items-center">
 
-    <img class="card-img-left ms-2" src="/images/employee.avatar.svg" width="40" height="40">
+                        <img class="card-img-left ms-2" src="~/images/employee.avatar.svg" width="40" height="40">
 
-    <div class="card-body w-100 overflow-hidden">
-    <span class="card-title text-truncate">@employee.LastName @employee.FirstName @employee.Patronymic</span>
-    </div>
+                        <div class="card-body w-100 overflow-hidden">
+                            <span class="card-title text-truncate">@employee.LastName @employee.FirstName @employee?.Patronymic</span>
+                        </div>
 
-    <a class="btn btn-primary me-4">Назначить</a>
-    </div>
-    }
-    </div>
+                        <button class="btn btn-primary me-4" type="submit" value="Назначить" asp-controller="@TagHelpers.AspProjectController" asp-action="AttachEmployee" asp-route-id="@employee.Id" />
+
+                    </form>
+                }
+            }
+        </div>
     </div> *@
 </div>
 

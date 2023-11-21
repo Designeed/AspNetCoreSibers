@@ -1,23 +1,17 @@
-﻿using AspNetCoreSibers.Domain;
-using AspNetCoreSibers.Domain.Entities;
-using AspNetCoreSibers.Domain.Repositories.EmployeeRepository;
+﻿using AspNetCoreSibers.Domain.Entities;
 using AspNetCoreSibers.Domain.Repositories.ProjectRepository;
 using AspNetCoreSibers.Service;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 
 namespace AspNetCoreSibers.Controllers
 {
     public class ProjectController : Controller
     {
         private readonly IProjectRepository _projectRepository;
-        private readonly IEmployeeRepository _employeeRepository;
 
-
-        public ProjectController(IProjectRepository projectRepository, IEmployeeRepository employeeRepository)
+        public ProjectController(IProjectRepository projectRepository)
         {
             _projectRepository = projectRepository;
-            _employeeRepository = employeeRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -25,6 +19,15 @@ namespace AspNetCoreSibers.Controllers
             var taskProjectList = _projectRepository.GetProjectsAsync();
 
             return View(await taskProjectList);
+        }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var taskDeletionProject = _projectRepository.DeleteProjectByIdAsync(id);
+
+            await taskDeletionProject;
+
+            return RedirectToAction(nameof(ProjectController.Index), nameof(ProjectController).RemoveController());
         }
 
         public IActionResult Create()
@@ -37,7 +40,7 @@ namespace AspNetCoreSibers.Controllers
         {
             if (!ModelState.IsValid)
                 return View(project);
-
+            
             var taskCreationProject = _projectRepository.AddProjectAsync(project);
 
             await taskCreationProject;
@@ -45,13 +48,23 @@ namespace AspNetCoreSibers.Controllers
             return RedirectToAction(nameof(ProjectController.Index), nameof(ProjectController).RemoveController());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            
-            var taskDeletionProject = _projectRepository.DeleteProjectAsync(id);
+            var project = await _projectRepository.GetProjectByIdAsync(id);
 
-            await taskDeletionProject;
+            return View(project);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Project project)
+        {
+            if (!ModelState.IsValid)
+                return View(project);
+
+            var taskEditionProject = _projectRepository.EditProjectAsync(project);
+
+            await taskEditionProject;
 
             return RedirectToAction(nameof(ProjectController.Index), nameof(ProjectController).RemoveController());
         }
