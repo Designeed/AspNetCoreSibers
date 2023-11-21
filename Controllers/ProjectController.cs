@@ -1,6 +1,7 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
 using AspNetCoreSibers.Domain.Repositories.ProjectRepository;
 using AspNetCoreSibers.Service;
+using AspNetCoreSibers.Service.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreSibers.Controllers
@@ -14,9 +15,9 @@ namespace AspNetCoreSibers.Controllers
             _projectRepository = projectRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(ProjectSortType sortType = ProjectSortType.Name)
         {
-            var taskProjectList = _projectRepository.GetProjectsAsync();
+            var taskProjectList = _projectRepository.GetSortedProjectListAsync(sortType);
 
             return View(await taskProjectList);
         }

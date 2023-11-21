@@ -1,4 +1,5 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
+using AspNetCoreSibers.Service.Shared;
 
 namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
 {
@@ -8,6 +9,6 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
         public Task DeleteProjectByIdAsync(Guid id);
         public Task EditProjectAsync(Project project);
         public Task<Project?> GetProjectByIdAsync(Guid id);
-        public Task<ICollection<Project>> GetProjectsAsync();
+        public Task<ICollection<Project>?> GetSortedProjectListAsync(ProjectSortType sortType);
     }
 }

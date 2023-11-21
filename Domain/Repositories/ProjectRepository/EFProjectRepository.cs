@@ -1,4 +1,5 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
+using AspNetCoreSibers.Service.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
@@ -35,9 +36,19 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
             return await _dbContext.Projects.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<ICollection<Project>> GetProjectsAsync()
+        public async Task<ICollection<Project>?> GetSortedProjectListAsync(ProjectSortType sortType)
         {
-            return await _dbContext.Projects.ToListAsync();
+            var projectCollection = _dbContext.Projects.Select(project => project);
+
+            projectCollection = sortType switch
+            {
+                ProjectSortType.Name => projectCollection.OrderBy(project => project.Name),
+                ProjectSortType.StartDate => projectCollection.OrderBy(project => project.ProjectStartDate),
+                ProjectSortType.EndDate => projectCollection.OrderBy(project => project.ProjectEndDate),
+                ProjectSortType.Priority => projectCollection.OrderBy(project => project.Priority)
+            };
+
+            return await projectCollection.ToListAsync();
         }
     }
 }
