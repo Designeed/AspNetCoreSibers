@@ -1,0 +1,35 @@
+﻿@using AspNetCoreSibers.Domain.Entities;
+@using AspNetCoreSibers.Service.Shared;
+
+@model Project
+@{
+    ViewData["Title"] = "Sibers - Редактирование проекта";
+}
+
+<div class="row">
+    <form class="d-flex flex-column gap-2 col" asp-controller="Project" asp-action="Edit" method="post">
+        <div class="form-group">
+            <label>Название проекта</label>
+            <input class="form-control" asp-for="Name">
+        </div>
+        <div class="form-group">
+            <label>Название компании-заказчика</label>
+            <input class="form-control" asp-for="CompanyClientName">
+        </div>
+        <div class="form-group">
+            <label>Название компании-исполнителя</label>
+            <input class="form-control" asp-for="CompanyExecutorName">
+        </div>
+
+        <div class="form-group">
+            <label>Дата начала проекта</label>
+            <input class="form-control" readonly type="text" asp-for="ProjectStartDate" value="@Model.ProjectStartDate.ToString(Constants.DATE_FORMAT)">
+        </div>
+
+        <div class="form-group">
+            <label>Приоритет проекта</label>
+            <input class="form-control" type="text" asp-for="Prierity">
+        </div>
+
+        <input class="btn btn-outline-primary" type="submit" value="Редаткировать информацию о проекте"/>
+    </form>

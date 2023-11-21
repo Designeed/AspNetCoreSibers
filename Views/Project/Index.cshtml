@@ -1,53 +1,51 @@
 ﻿@using AspNetCoreSibers.Domain.Entities;
 @using AspNetCoreSibers.Service.Shared;
 
-@model IEnumerable<Project>
+@model ICollection<Project>
 @{
     ViewData["Title"] = "Sibers - Список проектов";
-};
+}
 
 <div class="mb-3">
-    <a class="btn btn-outline-primary" asp-action="Create">Добавить проект</a>
+    <a class="btn btn-outline-primary" asp-controller="Project" asp-action="Create">Добавить информацию о проекте</a>
 </div>
 
 <div class="container p-0">
     <div class="row row-cols-3 g-3 overflow-auto h-75">
-        @foreach (var project in Model)
+        @if (Model != null)
         {
-            <div class="">
-                <div class="card d-flex flex-row align-items-center">
+            @foreach (var project in Model)
+            {
+                <div class="col">
+                    <div class="card d-flex flex-row align-items-center">
 
-                    <img class="card-img-left ms-2" src="/images/project-holder-logo.svg" width="40" height="40">
+                        <img class="card-img-left ms-2" src="~/images/project-holder-logo.svg" width="40" height="40">
 
-                    <div class="card-body w-100 overflow-hidden">
-                        <h5 class="card-title text-truncate">@project.Name</h5>
-                        <div class="text-truncate">Приоритет: @project.Prierity</div>
-                        <div class="text-truncate">Дата начала: @project.ProjectStartDate.ToString(Constants.DATE_FORMAT)</div>
-                        @if (project.ProjectEndDate is not null)
-                        {
-                            <div class="text-truncate">Дата окончания: @project.ProjectEndDate?.ToString(Constants.DATE_FORMAT)</div>
-                        }
-                        else
-                        {
-                            <div class="text-truncate invisible">placeHolder</div>
-                        }
-                    </div>
+                        <div class="card-body w-100 overflow-hidden">
+                            <h5 class="card-title text-truncate">@project.Name</h5>
+                            <div class="text-truncate">Приоритет: @project.Prierity</div>
+                            <div class="text-truncate">Дата начала: @project.ProjectStartDate.ToString(Constants.DATE_FORMAT)</div>
+                            @if (project.ProjectEndDate != null)
+                            {
+                                <div class="text-truncate">Дата окончания: @project.ProjectEndDate?.ToString(Constants.DATE_FORMAT)</div>
+                            }
+                            else
+                            {
+                                <div class="placeholder"></div>
+                            }
+                        </div>
 
-                    <div class="me-3 d-flex flex-column gap-3 align-items-end">
-                        <form method="post">
-                            <button class="btn btn-danger rounded-3 p-1 align-self-end" type="submit" asp-action="Delete" asp-route-id="@project.Id">
+                        <div class="me-3 d-flex flex-column gap-3 align-items-end">
+                            <a class="btn btn-danger rounded-3 p-1 align-self-end" asp-controller="Project" asp-action="Delete" asp-route-id="@project.Id">
                                 <img src="images/delete-icon.svg" width="20">
-                            </button>
-                        </form>
-                        <a >
-                        </a>
+                            </a>
 
-                        <a class="btn btn-primary">Подробнее</a>
+                            <a class="btn btn-primary" asp-controller="Project" asp-action="Edit" asp-route-id="@project.Id">Подробнее</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
-
 </div>
 
