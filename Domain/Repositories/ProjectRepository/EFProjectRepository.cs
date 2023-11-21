@@ -36,7 +36,7 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
             return await _dbContext.Projects.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<ICollection<Project>?> GetSortedProjectListAsync(ProjectSortType sortType)
+        public async Task<ICollection<Project>> GetSortedProjectListAsync(ProjectSortType sortType)
         {
             var projectCollection = _dbContext.Projects.Select(project => project);
 

@@ -9,6 +9,6 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
         public Task DeleteProjectByIdAsync(Guid id);
         public Task EditProjectAsync(Project project);
         public Task<Project?> GetProjectByIdAsync(Guid id);
-        public Task<ICollection<Project>?> GetSortedProjectListAsync(ProjectSortType sortType);
+        public Task<ICollection<Project>> GetSortedProjectListAsync(ProjectSortType sortType);
     }
 }
