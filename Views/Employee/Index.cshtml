@@ -1,10 +1,39 @@
 ﻿@using AspNetCoreSibers.Domain.Entities;
 
-@model IEnumerable<Employee>
+@model ICollection<Employee>
 @{
-    ViewData["Title"] = "Sibers - Список сотрудников";
-};
+    ViewData["Title"] = "Sibers - Добавление проекта";
+}
 
-<div>
-    <h2>Список сотрудников</h2>
+<div class="mb-3">
+    <a class="btn btn-outline-primary" asp-controller="Employee" asp-action="Create">Добавить информацию о сотруднике</a>
+</div>
+
+<div class="container p-0">
+    <div class="row row-cols-3 g-3 overflow-auto h-75">
+        @if (Model != null)
+        {
+            @foreach (var employee in Model)
+            {
+                <div class="col">
+                    <div class="card d-flex flex-row align-items-center">
+
+                        <img class="card-img-left ms-2" src="~/images/employee.avatar.svg" width="40" height="40">
+
+                        <div class="card-body w-100 overflow-hidden text-truncate">
+                            <h5 class="card-title text-truncate">@employee.LastName @employee.FirstName @employee?.Patronymic</h5>
+                        </div>
+
+                        <div class="m-3 ms-0 d-flex flex-column gap-3 align-items-end">
+                            <a class="btn btn-danger rounded-3 p-1 align-self-end" asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">
+                                <img src="~/images/delete-icon.svg" width="20">
+                            </a>
+
+                            <a class="btn btn-primary" asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
 </div>

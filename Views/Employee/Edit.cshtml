@@ -1,0 +1,27 @@
+﻿@using AspNetCoreSibers.Domain.Entities;
+
+@model Employee
+@{
+    ViewData["Title"] = "Sibers - Редактирование сотрудника";
+}
+
+<div class="row">
+    <form class="d-flex flex-column gap-2 col" asp-controller="Employee" asp-action="Edit" method="post">
+        <div class="form-group">
+            <label>Фамилия</label>
+            <input class="form-control" asp-for="LastName">
+        </div>
+
+        <div class="form-group">
+            <label>Имя</label>
+            <input class="form-control" asp-for="FirstName">
+        </div>
+
+        <div class="form-group">
+            <label>Отчетсво</label>
+            <input class="form-control" asp-for="Patronymic">
+        </div>
+
+        <input class="btn btn-outline-primary w-auto" type="submit" value="Редактировать информацию о сотруднике" />
+    </form>
+</div>
