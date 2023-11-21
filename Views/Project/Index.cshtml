@@ -1,7 +1,9 @@
 ﻿@using AspNetCoreSibers.Domain.Entities;
+@using AspNetCoreSibers.Domain.Models.ProjectModels;
 @using AspNetCoreSibers.Service.Shared;
+@using AspNetCoreSibers.Service;
 
-@model ICollection<Project>
+@model IndexProjectModel
 @{
     ViewData["Title"] = "Sibers - Список проектов";
 }
@@ -16,18 +18,12 @@
         </a>
 
         <ul class="dropdown-menu">
-            <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@ProjectSortType.Name">
-                Имени
-            </a>
-            <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@ProjectSortType.StartDate">
-                Дате начала
-            </a>
-            <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@ProjectSortType.EndDate">
-                Дате окончания
-            </a>
-            <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@ProjectSortType.Priority">
-                Приоритету
-            </a>
+            @foreach (var item in Model.GetProjectSortTypes)
+            {
+                <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@item">
+                    @item.GetDisplayName()
+                </a>
+            }
         </ul>
     </div>
 </div>
@@ -36,7 +32,7 @@
     <div class="row row-cols-3 g-3 overflow-auto h-75">
         @if (Model != null)
         {
-            @foreach (var project in Model)
+            @foreach (var project in Model.Projects)
             {
                 <div class="col">
                     <div class="card d-flex flex-row align-items-center">
