@@ -6,8 +6,30 @@
     ViewData["Title"] = "Sibers - Список проектов";
 }
 
-<div class="mb-3">
-    <a class="btn btn-outline-primary" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectCreateAction">Добавить информацию о проекте</a>
+<div class="mb-3 d-flex justify-content-between">
+    <a class="btn btn-outline-primary w-auto" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectCreateAction">Добавить информацию о проекте</a>
+
+
+    <div class="dropdown">
+        <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Сортировка по
+        </a>
+
+        <ul class="dropdown-menu">
+            <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@ProjectSortType.Name">
+                Имени
+            </a>
+            <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@ProjectSortType.StartDate">
+                Дате начала
+            </a>
+            <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@ProjectSortType.EndDate">
+                Дате окончания
+            </a>
+            <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@ProjectSortType.Priority">
+                Приоритету
+            </a>
+        </ul>
+    </div>
 </div>
 
 <div class="container p-0">
@@ -23,7 +45,7 @@
 
                         <div class="card-body w-100 overflow-hidden">
                             <h5 class="card-title text-truncate">@project.Name</h5>
-                            <div class="text-truncate">Приоритет: @project.Prierity</div>
+                            <div class="text-truncate">Приоритет: @project.Priority</div>
                             <div class="text-truncate">Дата начала: @project.ProjectStartDate.ToString(Constants.DATE_FORMAT)</div>
                             @if (project.ProjectEndDate != null)
                             {
