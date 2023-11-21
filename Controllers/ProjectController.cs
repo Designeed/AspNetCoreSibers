@@ -1,4 +1,5 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
+using AspNetCoreSibers.Domain.Models.ProjectModels;
 using AspNetCoreSibers.Domain.Repositories.ProjectRepository;
 using AspNetCoreSibers.Service;
 using AspNetCoreSibers.Service.Shared;
@@ -17,9 +18,12 @@ namespace AspNetCoreSibers.Controllers
 
         public async Task<IActionResult> Index(ProjectSortType sortType = ProjectSortType.Name)
         {
+            IndexProjectModel projectModel = new();
             var taskProjectList = _projectRepository.GetSortedProjectListAsync(sortType);
 
-            return View(await taskProjectList);
+            projectModel.Projects = await taskProjectList;
+
+            return View(projectModel);
         }
 
         public async Task<IActionResult> Delete(Guid id)
