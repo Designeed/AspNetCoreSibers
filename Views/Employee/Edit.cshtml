@@ -6,7 +6,7 @@
 }
 
 <div class="row">
-    <form class="d-flex flex-column gap-2 col" asp-controller="Employee" asp-action="Edit" method="post">
+    <form class="d-flex flex-column gap-2 col" asp-controller="@TagHelpers.AspEmployeeController" asp-action="@TagHelpers.AspEmployeeEditAction" method="post">
         <div class="form-group">
             <label>Фамилия</label>
             <input class="form-control" asp-for="LastName">

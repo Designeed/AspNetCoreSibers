@@ -7,7 +7,7 @@
 }
 
 <div class="row">
-    <form class="d-flex flex-column gap-2 col" asp-controller="Project" asp-action="Edit" method="post">
+    <form class="d-flex flex-column gap-2 col" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectEditAction" method="post">
         <div class="form-group">
             <label>Название проекта</label>
             <input class="form-control" asp-for="Name">

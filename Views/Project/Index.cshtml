@@ -7,7 +7,7 @@
 }
 
 <div class="mb-3">
-    <a class="btn btn-outline-primary" asp-controller="Project" asp-action="Create">Добавить информацию о проекте</a>
+    <a class="btn btn-outline-primary" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectCreateAction">Добавить информацию о проекте</a>
 </div>
 
 <div class="container p-0">
@@ -36,11 +36,11 @@
                         </div>
 
                         <div class="me-3 d-flex flex-column gap-3 align-items-end">
-                            <a class="btn btn-danger rounded-3 p-1 align-self-end" asp-controller="Project" asp-action="Delete" asp-route-id="@project.Id">
+                            <a class="btn btn-danger rounded-3 p-1 align-self-end" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectDeleteAction" asp-route-id="@project.Id">
                                 <img src="images/delete-icon.svg" width="20">
                             </a>
 
-                            <a class="btn btn-primary" asp-controller="Project" asp-action="Edit" asp-route-id="@project.Id">Подробнее</a>
+                            <a class="btn btn-primary" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectEditAction" asp-route-id="@project.Id">Подробнее</a>
                         </div>
                     </div>
                 </div>

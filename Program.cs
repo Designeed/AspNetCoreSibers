@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using AspNetCoreSibers.Domain.Repositories.EmployeeRepository;
 using AspNetCoreSibers.Domain.Repositories.ProjectRepository;
 using AspNetCoreSibers.Service.Project;
+using AspNetCoreSibers.Service.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ builder.Host.ConfigureServices(services =>
 {
     services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
     services.AddScoped<IProjectRepository, EFProjectRepository>();
-    services.AddSingleton<CreateProjectService>();
+    services.AddSingleton<TagHelperService>();
 
     string connection = builder.Configuration.GetConnectionString("DefaultConnection");
     services.AddDbContext<AppDbContext>(option => option.UseSqlServer(connection));

@@ -6,7 +6,7 @@
 }
 
 <div class="mb-3">
-    <a class="btn btn-outline-primary" asp-controller="Employee" asp-action="Create">Добавить информацию о сотруднике</a>
+    <a class="btn btn-outline-primary" asp-controller="@TagHelpers.AspEmployeeController" asp-action="@TagHelpers.AspEmployeeCreateAction">Добавить информацию о сотруднике</a>
 </div>
 
 <div class="container p-0">
@@ -25,11 +25,11 @@
                         </div>
 
                         <div class="m-3 ms-0 d-flex flex-column gap-3 align-items-end">
-                            <a class="btn btn-danger rounded-3 p-1 align-self-end" asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id">
+                            <a class="btn btn-danger rounded-3 p-1 align-self-end" asp-controller="@TagHelpers.AspEmployeeController" asp-action="@TagHelpers.AspEmployeeDeleteAction" asp-route-id="@employee.Id">
                                 <img src="~/images/delete-icon.svg" width="20">
                             </a>
 
-                            <a class="btn btn-primary" asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id">Подробнее</a>
+                            <a class="btn btn-primary" asp-controller="@TagHelpers.AspEmployeeController" asp-action="@TagHelpers.AspEmployeeEditAction" asp-route-id="@employee.Id">Подробнее</a>
                         </div>
                     </div>
                 </div>

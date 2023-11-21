@@ -7,7 +7,7 @@
 }
 
 <div class="row">
-    <form class="d-flex flex-column gap-2 col" asp-controller="Project" asp-action="Create" method="post">
+    <form class="d-flex flex-column gap-2 col" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectCreateAction" method="post">
         <div class="form-group">
             <label>Название проекта</label>
             <input class="form-control" asp-for="Name">
@@ -31,7 +31,7 @@
             <input class="form-control" type="text" asp-for="Prierity" value="">
         </div>
 
-        <input class="btn btn-outline-primary w-auto" type="submit" value="Создать проект" />
+        <input class="btn btn-outline-primary w-auto" type="submit" value="Добавить информацию о проекте" />
     </form>
    @*  <div class="col">
         <div class="d-flex flex-column gap-3 mh-75">
@@ -48,7 +48,7 @@
                             <span class="card-title text-truncate">@employee.LastName @employee.FirstName @employee?.Patronymic</span>
                         </div>
 
-                        <button class="btn btn-primary me-4" type="submit" value="Назначить" asp-controller="Project" asp-action="AttachEmployee" asp-route-id="@employee.Id" />
+                        <button class="btn btn-primary me-4" type="submit" value="Назначить" asp-controller="@TagHelpers.AspProjectController" asp-action="AttachEmployee" asp-route-id="@employee.Id" />
 
                     </form>
                 }
