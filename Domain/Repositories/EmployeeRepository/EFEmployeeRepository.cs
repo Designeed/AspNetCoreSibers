@@ -18,7 +18,7 @@ namespace AspNetCoreSibers.Domain.Repositories.EmployeeRepository
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteEmployeeAsync(Guid id)
+        public async Task DeleteEmployeeByIdAsync(Guid id)
         {
             _dbContext.Employees.Remove(new Employee { Id = id });
             await _dbContext.SaveChangesAsync();
@@ -30,14 +30,14 @@ namespace AspNetCoreSibers.Domain.Repositories.EmployeeRepository
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Employee> GetEmployeeByIdAsync(Guid id)
+        public async Task<Employee?> GetEmployeeByIdAsync(Guid id)
         {
             return await _dbContext.Employees.FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<ICollection<Employee>> GetEmployeesAsync()
         {
-            return await _dbContext.Employees.ToListAsync();
+            return await _dbContext.Employees.OrderBy(employee => employee.LastName).ToListAsync();
         }
     }
 }
