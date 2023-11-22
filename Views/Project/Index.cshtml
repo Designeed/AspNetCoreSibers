@@ -11,20 +11,43 @@
 <div class="mb-3 d-flex justify-content-between">
     <a class="btn btn-outline-primary w-auto" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectCreateAction">Добавить информацию о проекте</a>
 
+    <div class="d-flex gap-3">
+        <div class="dropdown">
+            <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Фильтрация по приоритету
+            </a>
 
-    <div class="dropdown">
-        <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Сортировка по
-        </a>
+            <ul class="dropdown-menu">
+                @foreach (var item in Model.PriorityList)
+                {
+                    <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-priorityValue="@item" asp-route-sortType="@ViewBag.CurrentSortType">
+                        @if (item != Constants.DEFAULT_PRIORITY_FILTER_PARAMETER)
+                        {
+                            @item
+                        }
+                        else
+                        {
+                            <div>Сбросить</div>
+                        }
+                    </a>
+                }
+            </ul>
+        </div>
 
-        <ul class="dropdown-menu">
-            @foreach (var item in Model.GetProjectSortTypes)
-            {
-                <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@item">
-                    @item.GetDisplayName()
-                </a>
-            }
-        </ul>
+        <div class="dropdown">
+            <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Сортировка по
+            </a>
+
+            <ul class="dropdown-menu">
+                @foreach (var item in Model.ProjectSortTypes)
+                {
+                    <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@item" asp-route-priorityValue="@ViewBag.CurrentPriority">
+                        @item.GetDisplayName()
+                    </a>
+                }
+            </ul>
+        </div>
     </div>
 </div>
 

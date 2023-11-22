@@ -6,6 +6,7 @@ namespace AspNetCoreSibers.Domain.Models.ProjectModels
     public class IndexProjectModel
     {
         public ICollection<Project> Projects { get; set; }
-        public IEnumerable<ProjectSortType> GetProjectSortTypes { get => Enum.GetValues(typeof(ProjectSortType)).Cast<ProjectSortType>(); }
+        public ICollection<int> PriorityList { get; set; }
+        public IEnumerable<ProjectSortType> ProjectSortTypes { get => Enum.GetValues(typeof(ProjectSortType)).Cast<ProjectSortType>(); }
     }
 }

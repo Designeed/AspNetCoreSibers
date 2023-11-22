@@ -1,4 +1,5 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
+using AspNetCoreSibers.Service.Project;
 using AspNetCoreSibers.Service.Shared;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,7 +37,7 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
             return await _dbContext.Projects.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<ICollection<Project>> GetSortedProjectListAsync(ProjectSortType sortType)
+        public async Task<ICollection<Project>> GetSortedProjectListAsync(ProjectSortType sortType, int priorityFilterParameter)
         {
             var projectCollection = _dbContext.Projects.Select(project => project);
 
@@ -48,7 +49,20 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
                 ProjectSortType.Priority => projectCollection.OrderBy(project => project.Priority)
             };
 
+            if (priorityFilterParameter != Constants.DEFAULT_PRIORITY_FILTER_PARAMETER)
+                projectCollection = projectCollection.Where(project => project.Priority == priorityFilterParameter);
+
             return await projectCollection.ToListAsync();
+        }
+
+        public async Task<ICollection<int>> GetPriorityListAsync()
+        {
+            return await _dbContext
+                .Projects
+                .OrderBy(project => project.Priority)
+                .Select(project => project.Priority)
+                .Distinct()
+                .ToListAsync();
         }
     }
 }

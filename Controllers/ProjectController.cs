@@ -9,6 +9,8 @@ namespace AspNetCoreSibers.Controllers
 {
     public class ProjectController : Controller
     {
+        private readonly IndexProjectModel projectModel = new();
+
         private readonly IProjectRepository _projectRepository;
 
         public ProjectController(IProjectRepository projectRepository)
@@ -16,12 +18,13 @@ namespace AspNetCoreSibers.Controllers
             _projectRepository = projectRepository;
         }
 
-        public async Task<IActionResult> Index(ProjectSortType sortType = ProjectSortType.Name)
+        public async Task<IActionResult> Index(ProjectSortType sortType = ProjectSortType.Name, int priorityValue = Constants.DEFAULT_PRIORITY_FILTER_PARAMETER)
         {
-            IndexProjectModel projectModel = new();
-            var taskProjectList = _projectRepository.GetSortedProjectListAsync(sortType);
+            ViewData["CurrentSortType"] = sortType;
+            ViewData["CurrentPriority"] = priorityValue;
 
-            projectModel.Projects = await taskProjectList;
+            projectModel.Projects = await _projectRepository.GetSortedProjectListAsync(ViewBag.CurrentSortType, ViewBag.CurrentPriority);
+            projectModel.PriorityList = (await _projectRepository.GetPriorityListAsync()).Append(Constants.DEFAULT_PRIORITY_FILTER_PARAMETER).OrderBy(x => x).ToList();
 
             return View(projectModel);
         }
