@@ -28,6 +28,9 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
 
         public async Task EditProjectAsync(Project project)
         {
+            if (project.ProjectEndDate > DateTime.Now)
+                project.ProjectEndDate = DateTime.Now;
+
             _dbContext.Update(project);
             await _dbContext.SaveChangesAsync();
         }
