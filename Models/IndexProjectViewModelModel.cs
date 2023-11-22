@@ -1,9 +1,9 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
 using AspNetCoreSibers.Service.Shared;
 
-namespace AspNetCoreSibers.Domain.Models.ProjectModels
+namespace AspNetCoreSibers.Models
 {
-    public class IndexProjectModel
+    public class IndexProjectViewModelModel
     {
         public ICollection<Project> Projects { get; set; }
         public ICollection<int> PriorityList { get; set; }

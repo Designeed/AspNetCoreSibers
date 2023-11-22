@@ -1,5 +1,4 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
-using AspNetCoreSibers.Service.Project;
 using AspNetCoreSibers.Service.Shared;
 using Microsoft.EntityFrameworkCore;
 

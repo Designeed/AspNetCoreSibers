@@ -1,6 +1,6 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
-using AspNetCoreSibers.Domain.Models.ProjectModels;
 using AspNetCoreSibers.Domain.Repositories.ProjectRepository;
+using AspNetCoreSibers.Models;
 using AspNetCoreSibers.Service;
 using AspNetCoreSibers.Service.Shared;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ namespace AspNetCoreSibers.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly IndexProjectModel projectModel = new();
+        private readonly IndexProjectViewModelModel indexProjectModel = new();
 
         private readonly IProjectRepository _projectRepository;
 
@@ -23,10 +23,10 @@ namespace AspNetCoreSibers.Controllers
             ViewData["CurrentSortType"] = sortType;
             ViewData["CurrentPriority"] = priorityValue;
 
-            projectModel.Projects = await _projectRepository.GetSortedProjectListAsync(ViewBag.CurrentSortType, ViewBag.CurrentPriority);
-            projectModel.PriorityList = await _projectRepository.GetPriorityListAsync();
+            indexProjectModel.Projects = await _projectRepository.GetSortedProjectListAsync(ViewBag.CurrentSortType, ViewBag.CurrentPriority);
+            indexProjectModel.PriorityList = await _projectRepository.GetPriorityListAsync();
 
-            return View(projectModel);
+            return View(indexProjectModel);
         }
 
         public async Task<IActionResult> Delete(Guid id)
