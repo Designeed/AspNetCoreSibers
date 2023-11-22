@@ -18,17 +18,13 @@
             </a>
 
             <ul class="dropdown-menu">
+                <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-priorityValue="@Constants.DEFAULT_PRIORITY_FILTER_PARAMETER" asp-route-sortType="@ViewBag.CurrentSortType">
+                    Сбросить
+                </a>
                 @foreach (var item in Model.PriorityList)
                 {
                     <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-priorityValue="@item" asp-route-sortType="@ViewBag.CurrentSortType">
-                        @if (item != Constants.DEFAULT_PRIORITY_FILTER_PARAMETER)
-                        {
-                            @item
-                        }
-                        else
-                        {
-                            <div>Сбросить</div>
-                        }
+                        @item
                     </a>
                 }
             </ul>

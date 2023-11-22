@@ -24,7 +24,7 @@ namespace AspNetCoreSibers.Controllers
             ViewData["CurrentPriority"] = priorityValue;
 
             projectModel.Projects = await _projectRepository.GetSortedProjectListAsync(ViewBag.CurrentSortType, ViewBag.CurrentPriority);
-            projectModel.PriorityList = (await _projectRepository.GetPriorityListAsync()).Append(Constants.DEFAULT_PRIORITY_FILTER_PARAMETER).OrderBy(x => x).ToList();
+            projectModel.PriorityList = await _projectRepository.GetPriorityListAsync();
 
             return View(projectModel);
         }
