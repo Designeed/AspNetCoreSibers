@@ -23,12 +23,12 @@
 
         <div class="form-group">
             <label>Дата начала проекта</label>
-            <input class="form-control" readonly type="text" asp-for="ProjectStartDate" value="@DateTime.Now.ToString(Constants.DATE_FORMAT)">
+            <input class="form-control" type="date" asp-for="ProjectStartDate">
         </div>
 
         <div class="form-group">
             <label>Приоритет проекта</label>
-            <input class="form-control" type="number" asp-for="Priority" value="">
+            <input class="form-control" type="number" asp-for="Priority">
         </div>
 
         <input class="btn btn-outline-primary w-auto" type="submit" value="Добавить информацию о проекте" />
