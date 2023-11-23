@@ -32,7 +32,7 @@ namespace AspNetCoreSibers.Domain.Repositories.EmployeeRepository
 
         public async Task<Employee?> GetEmployeeByIdAsync(Guid id)
         {
-            return await _dbContext.Employees.FirstOrDefaultAsync(e => e.Id == id);
+            return await _dbContext.Employees.Include(employee => employee.Projects).FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<ICollection<Employee>> GetEmployeesAsync()
