@@ -5,7 +5,7 @@
     ViewData["Title"] = "Sibers - Нзначение сотрудников";
 }
 
-<div class="container p-0 ">
+<div class="container p-0 h-100">
     <form class="d-flex flex-column gap-3" method="post" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectAssignEmployeeAction">
         <div class="d-flex flex-row gap-3 justify-content-center">
 
@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="row row-cols-3 g-3 overflow-auto h-75">
+        <div class="row row-cols-lg-3 g-3 overflow-auto h-75">
             @if (Model != null)
             {
                 @foreach (var employee in Model.AvailableEmployees)

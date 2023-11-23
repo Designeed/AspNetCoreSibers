@@ -6,7 +6,7 @@
     ViewData["Title"] = "Sibers - Добавление проекта";
 }
 
-<div class="row">
+<div class="row h-100">
     <form class="d-flex flex-column gap-2 col" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectCreateAction" method="post">
         <div class="form-group">
             <label>Название проекта</label>
@@ -33,28 +33,6 @@
 
         <input class="btn btn-outline-primary w-auto" type="submit" value="Добавить информацию о проекте" />
     </form>
-   @*  <div class="col">
-        <div class="d-flex flex-column gap-3 mh-75">
-            @if (Model?.AllEmployees != null)
-            {
-                @foreach (var employee in Model.AllEmployees)
-                {
-                    <form class="col card d-flex flex-row align-items-center w-100" method="post">
-
-
-                        <img class="card-img-left ms-2" src="~/images/employee.avatar.svg" width="40" height="40">
-
-                        <div class="card-body w-100 overflow-hidden">
-                            <span class="card-title text-truncate">@employee.LastName @employee.FirstName @employee?.Patronymic</span>
-                        </div>
-
-                        <button class="btn btn-primary me-4" type="submit" value="Назначить" asp-controller="@TagHelpers.AspProjectController" asp-action="AttachEmployee" asp-route-id="@employee.Id" />
-
-                    </form>
-                }
-            }
-        </div>
-    </div> *@
 </div>
 
 

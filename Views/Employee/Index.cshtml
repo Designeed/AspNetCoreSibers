@@ -9,8 +9,8 @@
     <a class="btn btn-outline-primary" asp-controller="@TagHelpers.AspEmployeeController" asp-action="@TagHelpers.AspEmployeeCreateAction">Добавить информацию о сотруднике</a>
 </div>
 
-<div class="container p-0">
-    <div class="row row-cols-3 g-3 overflow-auto h-75">
+<div>
+    <div class="row row-cols-lg-3 overflow-auto h-75 g-3">
         @if (Model != null)
         {
             @foreach (var employee in Model)

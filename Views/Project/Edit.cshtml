@@ -6,7 +6,7 @@
     ViewData["Title"] = "Sibers - Редактирование проекта";
 }
 
-<div class="row">
+<div class="row h-100">
     <div class="col">
         <form class="d-flex flex-column gap-2 col" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectEditAction" method="post">
             <div class="form-group">
@@ -44,9 +44,8 @@
     @if (Model.Employees.Any())
     {
         <div class="col">
-
             <label>Сотрудники проекта:</label>
-            <div class="row row-cols-2 g-3 overflow-auto h-75">
+            <div class="row row-cols-lg-3 g-3 overflow-auto h-75">
 
                 @foreach (var employee in Model.Employees)
                 {

@@ -47,8 +47,8 @@
     </div>
 </div>
 
-<div class="container p-0">
-    <div class="row row-cols-3 g-3 overflow-auto h-75">
+<div>
+    <div class="row row-cols-lg-3 overflow-auto h-75 g-3">
         @if (Model != null)
         {
             @foreach (var project in Model.Projects)
@@ -74,7 +74,7 @@
 
                         <div class="d-flex flex-column gap-3 align-items-end">
                             <a class="btn btn-danger rounded-3 p-1 align-self-end" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectDeleteAction" asp-route-id="@project.Id">
-                                <img src="images/delete-icon.svg" width="20">
+                                <img src="~/images/delete-icon.svg" width="20">
                             </a>
 
                             <a class="btn btn-primary" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectEditAction" asp-route-id="@project.Id">Редактировать</a>
