@@ -5,7 +5,6 @@ using AspNetCoreSibers.Models;
 using AspNetCoreSibers.Service;
 using AspNetCoreSibers.Service.Shared;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AspNetCoreSibers.Controllers
 {
@@ -33,11 +32,10 @@ namespace AspNetCoreSibers.Controllers
             return View(indexProjectModel);
         }
 
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
-            var taskDeletionProject = _projectRepository.DeleteProjectByIdAsync(id);
-
-            await taskDeletionProject;
+            if (id.HasValue)
+                await _projectRepository.DeleteProjectByIdAsync(id.Value);
 
             return RedirectToAction(nameof(ProjectController.Index), nameof(ProjectController).RemoveController());
         }
@@ -53,9 +51,7 @@ namespace AspNetCoreSibers.Controllers
             if (!ModelState.IsValid)
                 return View(project);
 
-            var taskCreationProject = _projectRepository.AddProjectAsync(project);
-
-            await taskCreationProject;
+            await _projectRepository.AddProjectAsync(project);
 
             return RedirectToAction(nameof(ProjectController.Index), nameof(ProjectController).RemoveController());
         }
@@ -64,9 +60,11 @@ namespace AspNetCoreSibers.Controllers
         {
             var project = await _projectRepository.GetProjectByIdAsync(id);
 
+            if (project == null)
+                return RedirectToAction(nameof(ProjectController.Index), nameof(ProjectController).RemoveController());
+
             return View(project);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Edit(Project project)
@@ -74,9 +72,7 @@ namespace AspNetCoreSibers.Controllers
             if (!ModelState.IsValid)
                 return View(project);
 
-            var taskEditionProject = _projectRepository.EditProjectAsync(project);
-
-            await taskEditionProject;
+            await _projectRepository.EditProjectAsync(project);
 
             return RedirectToAction(nameof(ProjectController.Index), nameof(ProjectController).RemoveController());
         }
@@ -85,9 +81,12 @@ namespace AspNetCoreSibers.Controllers
         {
             AssignEmployeeViewModel assignEmployeeModel = new()
             {
-                Project = await _projectRepository.GetProjectByIdAsync(id) ?? new Project(),
+                Project = await _projectRepository.GetProjectByIdAsync(id),
                 AvailableEmployees = await _employeeRepository.GetEmployeesAsync()
             };
+
+            if (assignEmployeeModel.Project == null)
+                return RedirectToAction(nameof(ProjectController.Index), nameof(ProjectController).RemoveController());
 
             return View(assignEmployeeModel);
         }
@@ -95,15 +94,12 @@ namespace AspNetCoreSibers.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignEmployee(Guid? employeeId, Guid? projectId)
         {
-            if (!(employeeId.HasValue && projectId.HasValue))
+            if (!employeeId.HasValue || !projectId.HasValue)
                 return RedirectToAction(nameof(ProjectController.Index), nameof(ProjectController).RemoveController());
 
             var employee = await _employeeRepository.GetEmployeeByIdAsync(employeeId.Value);
             var project = await _projectRepository.GetProjectByIdAsync(projectId.Value);
             var employees = await _employeeRepository.GetEmployeesAsync();
-
-            if (employee == null || project == null)
-                return RedirectToAction(nameof(ProjectController.Index), nameof(ProjectController).RemoveController());
 
             AssignEmployeeViewModel assignEmployeeProjectModel = new()
             {
