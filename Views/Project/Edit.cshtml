@@ -7,35 +7,61 @@
 }
 
 <div class="row">
-    <form class="d-flex flex-column gap-2 col" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectEditAction" method="post">
-        <div class="form-group">
-            <label>Название проекта</label>
-            <input class="form-control" asp-for="Name">
-        </div>
-        <div class="form-group">
-            <label>Название компании-заказчика</label>
-            <input class="form-control" asp-for="CompanyClientName">
-        </div>
-        <div class="form-group">
-            <label>Название компании-исполнителя</label>
-            <input class="form-control" asp-for="CompanyExecutorName">
-        </div>
+    <div class="col">
+        <form class="d-flex flex-column gap-2 col" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectEditAction" method="post">
+            <div class="form-group">
+                <label>Название проекта</label>
+                <input class="form-control" asp-for="Name">
+            </div>
+            <div class="form-group">
+                <label>Название компании-заказчика</label>
+                <input class="form-control" asp-for="CompanyClientName">
+            </div>
+            <div class="form-group">
+                <label>Название компании-исполнителя</label>
+                <input class="form-control" asp-for="CompanyExecutorName">
+            </div>
 
-        <div class="form-group">
-            <label>Дата начала проекта</label>
-            <input class="form-control" readonly type="text" asp-for="ProjectStartDate" value="@Model.ProjectStartDate.ToString(Constants.DATE_FORMAT)">
-        </div>
+            <div class="form-group">
+                <label>Дата начала проекта</label>
+                <input class="form-control" readonly type="text" asp-for="ProjectStartDate" value="@Model.ProjectStartDate.ToString(Constants.DATE_FORMAT)">
+            </div>
 
-        <div class="form-group">
-            <label>Дата завершения проекта</label>
-            <input class="form-control" type="date" asp-for="ProjectEndDate">
-        </div>
+            <div class="form-group">
+                <label>Дата завершения проекта</label>
+                <input class="form-control" type="date" asp-for="ProjectEndDate">
+            </div>
 
-        <div class="form-group">
-            <label>Приоритет проекта</label>
-            <input class="form-control" type="number" asp-for="Priority">
-        </div>
+            <div class="form-group">
+                <label>Приоритет проекта</label>
+                <input class="form-control" type="number" asp-for="Priority">
+            </div>
 
-        <input class="btn btn-outline-primary" type="submit" value="Редаткировать информацию о проекте" />
-    </form>
+            <input class="btn btn-outline-primary" type="submit" value="Редаткировать информацию о проекте" />
+        </form>
+    </div>
+
+    @if (Model.Employees.Any())
+    {
+        <div class="col">
+
+            <label>Сотрудники проекта:</label>
+            <div class="row row-cols-2 g-3 overflow-auto h-75">
+
+                @foreach (var employee in Model.Employees)
+                {
+                    <div class="col">
+                        <div class="card d-flex flex-row align-items-center">
+
+                            <img class="card-img-left ms-2" src="~/images/employee.avatar.svg" width="40" height="40">
+
+                            <div class="card-body w-auto overflow-hidden text-truncate">
+                                <h5 class="card-title text-truncate">@employee.LastName @employee.FirstName @employee?.Patronymic</h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
 </div>

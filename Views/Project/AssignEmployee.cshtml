@@ -1,0 +1,58 @@
+﻿@using AspNetCoreSibers.Models;
+
+@model AssignEmployeeViewModel
+@{
+    ViewData["Title"] = "Sibers - Нзначение сотрудников";
+}
+
+<div class="container p-0 ">
+    <form class="d-flex flex-column gap-3" method="post" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectAssignEmployeeAction">
+        <div class="d-flex flex-row gap-3 justify-content-center">
+
+            <div class="form-group collapse">
+                <input class="form-control invisible" asp-for="@Model.Project.Id" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Название проекта</label>
+                <input class="form-control" asp-for="@Model.Project.Name" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Название проекта</label>
+                <input class="form-control" asp-for="@Model.Project.Priority" readonly>
+            </div>
+        </div>
+
+        <div class="row row-cols-3 g-3 overflow-auto h-75">
+            @if (Model != null)
+            {
+                @foreach (var employee in Model.AvailableEmployees)
+                {
+                    <div class="col">
+                        <div class="card d-flex flex-row align-items-center">
+
+                            <img class="card-img-left ms-2" src="~/images/employee.avatar.svg" width="40" height="40">
+
+                            <div class="card-body w-100 overflow-hidden text-truncate">
+                                <h5 class="card-title text-truncate">@employee.LastName @employee.FirstName @employee?.Patronymic</h5>
+                            </div>
+
+                            <div class="m-3 ms-0 d-flex flex-column gap-3 align-items-end">
+                                @if (!Model.Project.Employees.Contains(employee))
+                                {
+                                    <input type="submit" class="btn btn-primary" asp-route-employeeId="@employee.Id" asp-route-projectId="@Model.Project.Id" value="Назначить сотрудника" />
+                                }
+
+                                else
+                                {
+                                    <input type="submit" class="btn btn-danger" asp-route-employeeId="@employee.Id" asp-route-projectId="@Model.Project.Id" value="Отстранить сотрудника" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </form>
+</div>

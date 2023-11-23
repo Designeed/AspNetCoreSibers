@@ -9,6 +9,7 @@ namespace AspNetCoreSibers.Service.Shared
         public string AspProjectEditAction { get => nameof(ProjectController.Edit); }
         public string AspProjectDeleteAction { get => nameof(ProjectController.Delete); }
         public string AspProjectCreateAction { get => nameof(ProjectController.Create); }
+        public string AspProjectAssignEmployeeAction { get => nameof(ProjectController.AssignEmployee); }
 
         public string AspEmployeeController { get => nameof(EmployeeController).RemoveController(); }
         public string AspEmployeeIndexAction { get => nameof(EmployeeController.Index); }
