@@ -40,8 +40,7 @@
             <input class="btn btn-outline-primary" type="submit" value="Редаткировать информацию о проекте" />
         </form>
     </div>
-
-    @if (Model.Employees.Any())
+    @if (Model != null && Model.Employees.Any())
     {
         <div class="col">
             <label>Сотрудники проекта:</label>
