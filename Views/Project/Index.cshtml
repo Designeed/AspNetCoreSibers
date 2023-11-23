@@ -47,16 +47,16 @@
     </div>
 </div>
 
-<div class="container p-0">
-    <div class="row row-cols-3 g-3 overflow-auto h-75">
+<div>
+    <div class="row row-cols-lg-3 overflow-auto h-75 g-3">
         @if (Model != null)
         {
             @foreach (var project in Model.Projects)
             {
                 <div class="col">
-                    <div class="card d-flex flex-row align-items-center">
+                    <div class="card d-flex flex-row align-items-center p-3">
 
-                        <img class="card-img-left ms-2" src="~/images/project-holder-logo.svg" width="40" height="40">
+                        <img class="card-img-left" src="~/images/project-holder-logo.svg" width="40" height="40">
 
                         <div class="card-body w-100 overflow-hidden">
                             <h5 class="card-title text-truncate">@project.Name</h5>
@@ -72,12 +72,13 @@
                             }
                         </div>
 
-                        <div class="me-3 d-flex flex-column gap-3 align-items-end">
+                        <div class="d-flex flex-column gap-3 align-items-end">
                             <a class="btn btn-danger rounded-3 p-1 align-self-end" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectDeleteAction" asp-route-id="@project.Id">
-                                <img src="images/delete-icon.svg" width="20">
+                                <img src="~/images/delete-icon.svg" width="20">
                             </a>
 
-                            <a class="btn btn-primary" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectEditAction" asp-route-id="@project.Id">Подробнее</a>
+                            <a class="btn btn-primary" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectEditAction" asp-route-id="@project.Id">Редактировать</a>
+                            <a class="btn btn-primary" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectAssignEmployeeAction" asp-route-id="@project.Id">Назначить сотрудников</a>
                         </div>
                     </div>
                 </div>

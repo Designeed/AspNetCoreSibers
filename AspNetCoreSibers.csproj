@@ -12,8 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Models\ProjectModels\" />
-    <Folder Include="Models\ViewComponents\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\sass\" />
   </ItemGroup>

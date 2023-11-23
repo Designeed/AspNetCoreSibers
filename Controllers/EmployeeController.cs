@@ -14,20 +14,17 @@ namespace AspNetCoreSibers.Controllers
             _employeeRepository = employeeRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Delete(Guid? id)
         {
-            var taskEmployeeList = _employeeRepository.GetEmployeesAsync();
-
-            return View(await taskEmployeeList);
-        }
-
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var taskDeletionEmployee = _employeeRepository.DeleteEmployeeByIdAsync(id);
-
-            await taskDeletionEmployee;
+            if (id.HasValue)
+                await _employeeRepository.DeleteEmployeeByIdAsync(id.Value);
 
             return RedirectToAction(nameof(EmployeeController.Index), nameof(EmployeeController).RemoveController());
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _employeeRepository.GetEmployeesAsync());
         }
 
         public IActionResult Create()
@@ -50,6 +47,9 @@ namespace AspNetCoreSibers.Controllers
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
 
+            if (employee == null)
+                return RedirectToAction(nameof(EmployeeController.Index), nameof(EmployeeController).RemoveController());
+
             return View(employee);
         }
 
@@ -59,9 +59,7 @@ namespace AspNetCoreSibers.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            var taskEditionEmployee = _employeeRepository.EditEmployeeAsync(employee);
-
-            await taskEditionEmployee;
+            await _employeeRepository.EditEmployeeAsync(employee);
 
             return RedirectToAction(nameof(EmployeeController.Index), nameof(EmployeeController).RemoveController());
         }
