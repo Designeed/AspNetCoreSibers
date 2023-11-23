@@ -1,4 +1,5 @@
 ﻿using AspNetCoreSibers.Domain.Entities;
+using AspNetCoreSibers.Service.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
@@ -26,6 +27,9 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
 
         public async Task EditProjectAsync(Project project)
         {
+            if (project.ProjectEndDate > DateTime.Now)
+                project.ProjectEndDate = DateTime.Now;
+
             _dbContext.Update(project);
             await _dbContext.SaveChangesAsync();
         }
@@ -35,9 +39,32 @@ namespace AspNetCoreSibers.Domain.Repositories.ProjectRepository
             return await _dbContext.Projects.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<ICollection<Project>> GetProjectsAsync()
+        public async Task<ICollection<Project>> GetSortedProjectListAsync(ProjectSortType sortType, int priorityFilterParameter)
         {
-            return await _dbContext.Projects.ToListAsync();
+            var projectCollection = _dbContext.Projects.Select(project => project);
+
+            projectCollection = sortType switch
+            {
+                ProjectSortType.Name => projectCollection.OrderBy(project => project.Name),
+                ProjectSortType.StartDate => projectCollection.OrderBy(project => project.ProjectStartDate),
+                ProjectSortType.EndDate => projectCollection.OrderBy(project => project.ProjectEndDate),
+                ProjectSortType.Priority => projectCollection.OrderBy(project => project.Priority)
+            };
+
+            if (priorityFilterParameter != Constants.DEFAULT_PRIORITY_FILTER_PARAMETER)
+                projectCollection = projectCollection.Where(project => project.Priority == priorityFilterParameter);
+
+            return await projectCollection.ToListAsync();
+        }
+
+        public async Task<ICollection<int>> GetPriorityListAsync()
+        {
+            return await _dbContext
+                .Projects
+                .OrderBy(project => project.Priority)
+                .Select(project => project.Priority)
+                .Distinct()
+                .ToListAsync();
         }
     }
 }

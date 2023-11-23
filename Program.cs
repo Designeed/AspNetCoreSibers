@@ -2,7 +2,6 @@ using AspNetCoreSibers.Domain;
 using Microsoft.EntityFrameworkCore;
 using AspNetCoreSibers.Domain.Repositories.EmployeeRepository;
 using AspNetCoreSibers.Domain.Repositories.ProjectRepository;
-using AspNetCoreSibers.Service.Project;
 using AspNetCoreSibers.Service.Shared;
 
 var builder = WebApplication.CreateBuilder(args);

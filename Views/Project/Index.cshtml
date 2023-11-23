@@ -1,20 +1,57 @@
 ﻿@using AspNetCoreSibers.Domain.Entities;
 @using AspNetCoreSibers.Service.Shared;
+@using AspNetCoreSibers.Service;
+@using AspNetCoreSibers.Models;
 
-@model ICollection<Project>
+@model IndexProjectViewModelModel
 @{
     ViewData["Title"] = "Sibers - Список проектов";
 }
 
-<div class="mb-3">
-    <a class="btn btn-outline-primary" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectCreateAction">Добавить информацию о проекте</a>
+<div class="mb-3 d-flex justify-content-between">
+    <a class="btn btn-outline-primary w-auto" asp-controller="@TagHelpers.AspProjectController" asp-action="@TagHelpers.AspProjectCreateAction">Добавить информацию о проекте</a>
+
+    <div class="d-flex gap-3">
+        <div class="dropdown">
+            <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Фильтрация по приоритету
+            </a>
+
+            <ul class="dropdown-menu">
+                <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-priorityValue="@Constants.DEFAULT_PRIORITY_FILTER_PARAMETER" asp-route-sortType="@ViewBag.CurrentSortType">
+                    Сбросить
+                </a>
+                @foreach (var item in Model.PriorityList)
+                {
+                    <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-priorityValue="@item" asp-route-sortType="@ViewBag.CurrentSortType">
+                        @item
+                    </a>
+                }
+            </ul>
+        </div>
+
+        <div class="dropdown">
+            <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Сортировка по
+            </a>
+
+            <ul class="dropdown-menu">
+                @foreach (var item in Model.ProjectSortTypes)
+                {
+                    <a class="dropdown-item" asp-action="@TagHelpers.AspProjectIndexAction" asp-route-sortType="@item" asp-route-priorityValue="@ViewBag.CurrentPriority">
+                        @item.GetDisplayName()
+                    </a>
+                }
+            </ul>
+        </div>
+    </div>
 </div>
 
 <div class="container p-0">
     <div class="row row-cols-3 g-3 overflow-auto h-75">
         @if (Model != null)
         {
-            @foreach (var project in Model)
+            @foreach (var project in Model.Projects)
             {
                 <div class="col">
                     <div class="card d-flex flex-row align-items-center">
@@ -23,7 +60,7 @@
 
                         <div class="card-body w-100 overflow-hidden">
                             <h5 class="card-title text-truncate">@project.Name</h5>
-                            <div class="text-truncate">Приоритет: @project.Prierity</div>
+                            <div class="text-truncate">Приоритет: @project.Priority</div>
                             <div class="text-truncate">Дата начала: @project.ProjectStartDate.ToString(Constants.DATE_FORMAT)</div>
                             @if (project.ProjectEndDate != null)
                             {
